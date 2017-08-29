@@ -5,7 +5,7 @@ Plugin URI: http://www.zackdev.com
 Description: Custom Taxonomy Sort allows you to explicitly control the sort order of all taxonomy terms.
 Author: Zack Tollman
 Author URI: https://twitter.com/#!/zack_dev
-Version: 1.1.5
+Version: 1.1.6
 
 Plugin: Copyright 2011 Zack Tollman (email: zack [at] zackdev [dot] com)
 
@@ -177,8 +177,16 @@ class CustomTaxonomySort {
 	 * @return void
 	 */
 	function add_taxonomy_actions() {
+
+		$exclude_taxonomies = apply_filters( 'custom_taxonomy_sort_exclude_taxonomies', array() );
+
 		// Add actions for adding and editing order for all taxonomies
 		foreach ( get_taxonomies() as $taxonomy => $name ) {
+
+			if ( in_array( $name, $exclude_taxonomies ) ) {
+				continue;
+			}
+
 			// Custom data for taxonomy
 			add_action( $name.'_add_form_fields', array( &$this, 'metabox_add' ), 10, 1 );
 			add_action( $name.'_edit_form_fields', array( &$this, 'metabox_edit' ), 10, 1 );
@@ -291,6 +299,12 @@ class CustomTaxonomySort {
 	 * @return int|array
 	 */
 	function get_terms( $terms, $taxonomies, $args ) {
+
+		$args = wp_parse_args( $args, array(
+			'orderby' => '',
+			'order'   => ''
+		) );
+
 		// If the current control type is not automatic, return the terms unless it's explicitly set to be sorted by custom_sort
 		if ( $this->get_control_type() == 'off' && $args['orderby'] != $this->orderby_parameter ) return $terms;
 	
