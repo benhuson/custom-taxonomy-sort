@@ -4,7 +4,7 @@ Donate link: http://www.zackdev.com/
 Tags: taxonomy, category, sort
 Requires at least: 3.1
 Tested up to: 3.3
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 
 Custom Taxonomy Sort allows you to explicitly control the sort order of all taxonomy terms.
 
@@ -67,6 +67,9 @@ After installing the plugin, all taxonomies will be automatically sorted by your
 
 == Changelog ==
 
+= 1.1.6 =
+* Add `custom_taxonomy_sort_exclude_taxonomies` filter for removing support for certain taxonomies.
+
 = 1.1.5 =
 * Fixed bug with returning an inappropriate value for "column_value". Thanks to @martindj.
 
@@ -98,6 +101,9 @@ After installing the plugin, all taxonomies will be automatically sorted by your
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.1.6 =
+* Add `custom_taxonomy_sort_exclude_taxonomies` filter.
 
 = 1.1.5 =
 Fixed bug with column values
