@@ -177,8 +177,16 @@ class CustomTaxonomySort {
 	 * @return void
 	 */
 	function add_taxonomy_actions() {
+
+		$exclude_taxonomies = apply_filters( 'custom_taxonomy_sort_exclude_taxonomies', array() );
+
 		// Add actions for adding and editing order for all taxonomies
 		foreach ( get_taxonomies() as $taxonomy => $name ) {
+
+			if ( in_array( $name, $exclude_taxonomies ) ) {
+				continue;
+			}
+
 			// Custom data for taxonomy
 			add_action( $name.'_add_form_fields', array( &$this, 'metabox_add' ), 10, 1 );
 			add_action( $name.'_edit_form_fields', array( &$this, 'metabox_edit' ), 10, 1 );
